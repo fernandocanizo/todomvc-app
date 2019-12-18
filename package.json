@@ -4,6 +4,8 @@
   "description": "A todo app following tastejs/todomvc specification",
   "main": "index.html",
   "scripts": {
+    "prestart": "test ! -z ${PORT}",
+    "start": "PORT=${PORT:=8080} npx http-server -p $PORT",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
