@@ -1,9 +1,14 @@
-export const showByClass = cssClass => {
+export const toggleVisibilityByClass = ({ cssClass, state = 'block' }) => {
   const element = document.querySelector(cssClass);
-  element.style.display = 'block';
+  element.style.display = state;
 };
 
-export const hideByClass = cssClass => {
-  const element = document.querySelector(cssClass);
-  element.style.display = 'none';
-};
+export const showByClass = cssClass => toggleVisibilityByClass({
+  cssClass,
+  state: 'block',
+});
+
+export const hideByClass = cssClass => toggleVisibilityByClass({
+  cssClass,
+  state: 'none',
+});
