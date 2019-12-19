@@ -41,7 +41,6 @@ const addTask = () => {
 
 newTask.addEventListener('keyup', e => {
   if (ENTER_KEY === e.keyCode) {
-    console.log(newTask.value);
     addTask();
   }
 });
