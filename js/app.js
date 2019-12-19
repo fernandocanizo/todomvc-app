@@ -32,8 +32,7 @@ const addTask = () => {
   const taskList = document.getElementById('task-list');
   taskList.appendChild(taskTemplate(newTask.value));
 
-  showByClass('.main');
-  showByClass('.footer');
+  showByClass(['.main', '.footer']);
   updateCount();
   // clear input box for new tasks
   newTask.value = '';
