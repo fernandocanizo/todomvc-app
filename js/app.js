@@ -1,3 +1,5 @@
+import { showByClass } from './lib.js';
+
 const ENTER_KEY = 13;
 const html = hyperHTML;
 
@@ -14,11 +16,6 @@ const taskTemplate = task => html`
   <input type="text" class="edit" value="${ task }">
 </li>
 `;
-
-const showByClass = cssClass => {
-  const mainSection = document.querySelector(cssClass);
-  mainSection.style.display = 'block';
-};
 
 const updateCount = () => {
   const todoCount = document.querySelector('.todo-count');
