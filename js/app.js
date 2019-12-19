@@ -15,14 +15,9 @@ const taskTemplate = task => html`
 </li>
 `;
 
-const showMainSection = () => {
-  const mainSection = document.querySelector('.main');
+const showByClass = cssClass => {
+  const mainSection = document.querySelector(cssClass);
   mainSection.style.display = 'block';
-};
-
-const showFooter = () => {
-  const footer = document.querySelector('.footer')
-  footer.style.display = 'block';
 };
 
 const updateCount = () => {
@@ -40,8 +35,8 @@ const addTask = () => {
   const taskList = document.getElementById('task-list');
   taskList.appendChild(taskTemplate(newTask.value));
 
-  showMainSection();
-  showFooter();
+  showByClass('.main');
+  showByClass('.footer');
   updateCount();
   // clear input box for new tasks
   newTask.value = '';
