@@ -1,10 +1,16 @@
 import { showByClass } from './lib.js';
 
 const ENTER_KEY = 13;
-const html = hyperHTML;
-const taskList = localStorage.taskList ?
-  localStorage.taskList : [];
+const html = hyperHTML; // convenience rename
 const newTask = document.getElementById('new-task');
+
+const saveTasks = async taskList => {
+  try {
+    await localforage.setItem('taskList', taskList);
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 const taskTemplate = task => html`
 <li>
@@ -29,19 +35,45 @@ const updateCount = () => {
   countTemplate(taskListNode.children.length);
 };
 
-const addTask = () => {
+const addTask = taskList => {
   const taskListNode = document.getElementById('task-list');
   taskListNode.appendChild(taskTemplate(newTask.value));
 
   showByClass(['.main', '.footer']);
   updateCount();
+  taskList.push(newTask.value);
+  saveTasks(taskList);
   // clear input box for new tasks
   newTask.value = '';
 };
 
-newTask.addEventListener('keyup', e => {
-  if (ENTER_KEY === e.keyCode) {
-    addTask();
-  }
-});
+const showTasks = taskList => {
+  const taskListNode = document.getElementById('task-list');
+  taskList.forEach(v => {
+    taskListNode.appendChild(taskTemplate(v));
+  });
+  showByClass(['.main', '.footer']);
+  updateCount();
+};
 
+const main = async () => {
+  try {
+    let taskList = await localforage.getItem('taskList');
+
+    if (null === taskList) {
+      // initialize it
+      await localforage.setItem('taskList', []);
+      taskList = await localforage.getItem('taskList');
+    } else {
+      showTasks(taskList);
+    }
+
+    newTask.addEventListener('keyup',
+      e => (ENTER_KEY === e.keyCode) && addTask(taskList));
+
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+main();
