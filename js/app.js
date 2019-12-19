@@ -2,7 +2,8 @@ import { showByClass } from './lib.js';
 
 const ENTER_KEY = 13;
 const html = hyperHTML;
-
+const taskList = localStorage.taskList ?
+  localStorage.taskList : [];
 const newTask = document.getElementById('new-task');
 
 const taskTemplate = task => html`
@@ -19,18 +20,18 @@ const taskTemplate = task => html`
 
 const updateCount = () => {
   const todoCount = document.querySelector('.todo-count');
-  const taskList = document.getElementById('task-list');
+  const taskListNode = document.getElementById('task-list');
 
   const countTemplate = count => html(todoCount)`
 <strong>${ count }</strong> ${ count > 1 ? ' items' : ' item' } left
   `;
 
-  countTemplate(taskList.children.length);
+  countTemplate(taskListNode.children.length);
 };
 
 const addTask = () => {
-  const taskList = document.getElementById('task-list');
-  taskList.appendChild(taskTemplate(newTask.value));
+  const taskListNode = document.getElementById('task-list');
+  taskListNode.appendChild(taskTemplate(newTask.value));
 
   showByClass(['.main', '.footer']);
   updateCount();
