@@ -1,4 +1,9 @@
 export const showByClass = cssClass => {
-  const mainSection = document.querySelector(cssClass);
-  mainSection.style.display = 'block';
+  const element = document.querySelector(cssClass);
+  element.style.display = 'block';
+};
+
+export const hideByClass = cssClass => {
+  const element = document.querySelector(cssClass);
+  element.style.display = 'none';
 };
